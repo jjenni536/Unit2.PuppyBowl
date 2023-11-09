@@ -1,9 +1,9 @@
 // create variables to store api link
-const apiPlayersLink = `https://fsa-puppy-bowl.herokuapp.com/api/2310-fsa-et-web-ft-sf/players`;
+const apiPlayersLink = `https://fsa-puppy-bowl.herokuapp.com/api/2310-fsa-et-web-ft-sf`;
 
 // create variable to link to div in html and test
-const puppyCard = document.getElementById(`puppyPlayerCard`);
-console.log(puppyCard);
+const puppyCards = document.getElementById(`puppyPlayerCards`);
+// console.log(puppyCard);
 
 // test links
 console.log();
@@ -13,20 +13,51 @@ console.log();
 const state = {
     players: []
 }
-// retrieve all players and info via fetch
+// retrieve all players and their info via fetch
 const getAllPlayers = async () => {
-        const data = await fetch(apiPlayersLink);
+        const data = await fetch(`${apiPlayersLink}/players`);
         const response =  await data.json();
-        state.players = response.data;
+        state.players = response.data.players;
 
+// console.log(response.data.players);
 // render players on the screen
     renderAllPlayers();
 }
 
 const renderAllPlayers = () => {
-state.players.map((individualPuppy) => {
-console.log(individualPuppy);
+const pupNames = state.players.map((individualPup) => {
+return `<li id="${individualPup.id}">${individualPup.name}</li>`;
 });
+
+
+const ol = document.createElement(`ol`);
+puppyCards.append(ol)
+ol.innerHTML = pupNames.join(``);
+
+const nameList = document.querySelectorAll(`li`);
+// console.log(nameList);
+
+// add event listeners for namesList
+// loop through name list first.
+nameList.forEach((puppyName) => {
+puppyName.addEventListener(`click`,() => {
+    console.log(`click working!`);
+
+    // create function to grab the puppy player details
+const puppyDetails = (Id)=> {
+    const response = fetch(`${apiPlayersLink}/players/PLAYER-ID`);
+    const 
+}
+
+
+    // renderInformation();
+
+
+
+}) 
+});
+
+
 }
 
 getAllPlayers();
