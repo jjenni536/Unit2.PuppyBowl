@@ -37,17 +37,18 @@ ol.innerHTML = pupNames.join(``);
 const nameList = document.querySelectorAll(`li`);
 // console.log(nameList);
 
-// add event listeners for namesList
-// loop through name list first.
-nameList.forEach((puppyName) => {
-puppyName.addEventListener(`click`,() => {
-    console.log(`click working!`);
-
-    // create function to grab the puppy player details
-const puppyDetails = (Id)=> {
-    const response = fetch(`${apiPlayersLink}/players/PLAYER-ID`);
-    const 
+// create function to grab the puppy player details
+const puppyDetails = async (Id) => {
+    const response =  await fetch (`${apiPlayersLink}/players/${Id}`);
+    const jsonResponse = await response.json()
+    const pupDetails = await jsonResponse.data
+    console.log(pupDetails);
 }
+// add event listeners for namesList, loop through name list first
+nameList.forEach((puppyName) => {
+puppyName.addEventListener(`click`,(event) => {
+    puppyDetails(event.target.id)
+    // console.log(`click working!`);
 
 
     // renderInformation();
